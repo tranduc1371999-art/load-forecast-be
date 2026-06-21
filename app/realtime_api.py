@@ -21,7 +21,7 @@ DATA_DIR = Path(
     or BASE_DIR / "data"
 )
 
-FORECAST_FILE = DATA_DIR / "forecast_15min.csv"
+FORECAST_FILE = DATA_DIR / "forecast_short_term_15min.csv"
 
 
 def safe_float(value):
@@ -41,7 +41,7 @@ def load_forecast_data(date: Optional[str] = None):
     df = pd.read_csv(FORECAST_FILE)
 
     if "Timestamp" not in df.columns:
-        raise ValueError("forecast_15min.csv must contain Timestamp column")
+        raise ValueError("forecast_short_term_15min.csv must contain Timestamp column")
 
     df["Timestamp"] = pd.to_datetime(df["Timestamp"])
     df = df.sort_values("Timestamp")

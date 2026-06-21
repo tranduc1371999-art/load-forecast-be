@@ -46,19 +46,34 @@ def read_csv_as_json(file_name: str):
     }
 
 
-@router.get("/hourly")
-def get_hourly_forecast():
-    return read_csv_as_json("forecast_hourly.csv")
+@router.get("/short-term/15min")
+def get_short_term_15min_forecast():
+    return read_csv_as_json("forecast_short_term_15min.csv")
 
 
-@router.get("/daily")
-def get_daily_forecast():
-    return read_csv_as_json("forecast_daily.csv")
+@router.get("/short-term/hourly")
+def get_short_term_hourly_forecast():
+    return read_csv_as_json("forecast_short_term_hourly.csv")
 
 
-@router.get("/monthly")
-def get_monthly_forecast():
-    return read_csv_as_json("forecast_monthly.csv")
+@router.get("/medium-term/daily")
+def get_medium_term_daily_forecast():
+    return read_csv_as_json("forecast_medium_term_daily.csv")
+
+
+@router.get("/medium-term/monthly")
+def get_medium_term_monthly_forecast():
+    return read_csv_as_json("forecast_medium_term_monthly.csv")
+
+
+@router.get("/long-term/monthly")
+def get_long_term_monthly_forecast():
+    return read_csv_as_json("forecast_long_term_monthly.csv")
+
+
+@router.get("/long-term/scenarios")
+def get_long_term_scenarios_forecast():
+    return read_csv_as_json("forecast_long_term_scenarios.csv")
 
 
 @router.get("/metrics")
