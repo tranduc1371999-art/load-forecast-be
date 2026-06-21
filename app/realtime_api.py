@@ -6,18 +6,19 @@ from pathlib import Path
 from typing import Optional
 
 import pandas as pd
+from dotenv import load_dotenv
 from fastapi import APIRouter, Query
 from fastapi.responses import StreamingResponse
 
 router = APIRouter(prefix="/api/realtime", tags=["Realtime"])
 
 BASE_DIR = Path(__file__).resolve().parents[1]
+load_dotenv(BASE_DIR / ".env")
 
 DATA_DIR = Path(
-    os.getenv(
-        "FORECAST_DATA_DIR",
-        BASE_DIR / "data"
-    )
+    os.getenv("FORECAST_DATA_DIR")
+    or os.getenv("DATA_DIR")
+    or BASE_DIR / "data"
 )
 
 FORECAST_FILE = DATA_DIR / "forecast_15min.csv"

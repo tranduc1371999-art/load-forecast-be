@@ -3,17 +3,18 @@ import os
 from pathlib import Path
 
 import pandas as pd
+from dotenv import load_dotenv
 from fastapi import APIRouter
 
 router = APIRouter(prefix="/api/forecast", tags=["Forecast"])
 
 BASE_DIR = Path(__file__).resolve().parents[1]
+load_dotenv(BASE_DIR / ".env")
 
 DATA_DIR = Path(
-    os.getenv(
-        "FORECAST_DATA_DIR",
-        BASE_DIR / "data"
-    )
+    os.getenv("FORECAST_DATA_DIR")
+    or os.getenv("DATA_DIR")
+    or BASE_DIR / "data"
 )
 
 def dataframe_to_records(df: pd.DataFrame):
