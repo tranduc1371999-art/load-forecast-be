@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import pandas as pd
@@ -7,8 +8,13 @@ from fastapi import APIRouter
 router = APIRouter(prefix="/api/forecast", tags=["Forecast"])
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-DATA_DIR = BASE_DIR / "data"
 
+DATA_DIR = Path(
+    os.getenv(
+        "FORECAST_DATA_DIR",
+        BASE_DIR / "data"
+    )
+)
 
 def dataframe_to_records(df: pd.DataFrame):
     if "Timestamp" in df.columns:

@@ -1,6 +1,7 @@
 import asyncio
 import json
 import math
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -11,7 +12,13 @@ from fastapi.responses import StreamingResponse
 router = APIRouter(prefix="/api/realtime", tags=["Realtime"])
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-DATA_DIR = BASE_DIR / "data"
+
+DATA_DIR = Path(
+    os.getenv(
+        "FORECAST_DATA_DIR",
+        BASE_DIR / "data"
+    )
+)
 
 FORECAST_FILE = DATA_DIR / "forecast_15min.csv"
 
